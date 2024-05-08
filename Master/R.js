@@ -1,43 +1,66 @@
-// Obtener referencias a los elementos HTML
-const newTaskInput = document.getElementById('newTask');
-const taskList = document.getElementById('taskList');
+// Autenticación de usuarios
+const loginBtn = document.getElementById('loginBtn');
+const loginContainer = document.getElementById('loginContainer');
+const mainContainer = document.getElementById('mainContainer');
 
-// Función para agregar una nueva tarea
-function addTask() {
-    const taskText = newTaskInput.value.trim();
+loginBtn.addEventListener('click', () => {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    // Aquí puedes agregar la lógica para autenticar al usuario
+    // por ejemplo, verificar las credenciales con una base de datos
+
+    if (username === 'admin' && password === 'password') {
+        loginContainer.style.display = 'none';
+        mainContainer.style.display = 'flex';
+    } else {
+        alert('Credenciales incorrectas');
+    }
+});
+
+// Gestión de tareas
+const taskList = document.getElementById('taskList');
+const newTask = document.getElementById('newTask');
+const addTaskBtn = document.getElementById('addTaskBtn');
+
+addTaskBtn.addEventListener('click', () => {
+    const taskText = newTask.value.trim();
     if (taskText !== '') {
         const taskItem = document.createElement('li');
-        const taskCheckbox = document.createElement('input');
-        taskCheckbox.type = 'checkbox';
-        taskCheckbox.addEventListener('change', toggleTaskCompletion);
-        const taskLabel = document.createElement('label');
-        taskLabel.textContent = taskText;
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Eliminar';
-        deleteButton.addEventListener('click', deleteTask);
-        taskItem.appendChild(taskCheckbox);
-        taskItem.appendChild(taskLabel);
-        taskItem.appendChild(deleteButton);
+        taskItem.textContent = taskText;
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Eliminar';
+        deleteBtn.addEventListener('click', () => {
+            taskList.removeChild(taskItem);
+        });
+        taskItem.appendChild(deleteBtn);
         taskList.appendChild(taskItem);
-        newTaskInput.value = '';
+        newTask.value = '';
     }
-}
+});
 
-// Función para marcar/desmarcar una tarea como completada
-function toggleTaskCompletion(event) {
-    const taskLabel = event.target.nextElementSibling;
-    taskLabel.classList.toggle('completed');
-}
+// Chat en tiempo real
+const messages = document.getElementById('messages');
+const messageInput = document.getElementById('messageInput');
+const sendBtn = document.getElementById('sendBtn');
 
-// Función para eliminar una tarea
-function deleteTask(event) {
-    const taskItem = event.target.parentNode;
-    taskList.removeChild(taskItem);
-}
+// Simulación de conexión a un servidor de chat
+const socket = new WebSocket('ws://localhost:8080');
 
-// Agregar evento al input para agregar tareas al presionar Enter
-newTaskInput.addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-        addTask();
+socket.addEventListener('open', () => {
+    console.log('Conexión establecida');
+});
+
+socket.addEventListener('message', (event) => {
+    const message = document.createElement('div');
+    message.textContent = event.data;
+    messages.appendChild(message);
+});
+
+sendBtn.addEventListener('click', () => {
+    const messageText = messageInput.value.trim();
+    if (messageText !== '') {
+        socket.send(messageText);
+        messageInput.value = '';
     }
 });
