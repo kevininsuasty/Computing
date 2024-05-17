@@ -1,51 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Tareas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
-            margin-bottom: 10px;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
         .completed {
             text-decoration: line-through;
-            color: #888;
+            opacity: 0.5;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Lista de Tareas</h1>
-        <input type="text" id="newTask" placeholder="Ingresa una nueva tarea...">
-        <ul id="taskList"></ul>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Mi Lista de Tareas</h1>
+        <ul class="list-group" id="taskList"></ul>
     </div>
-    <script src="app.js"></script>
+
+    <script>
+        const taskList = document.getElementById('taskList');
+
+        // Función para agregar una tarea
+        function addTask(taskText) {
+            const taskItem = document.createElement('li');
+            taskItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
+
+            const taskSpan = document.createElement('span');
+            taskSpan.textContent = taskText;
+
+            const completeButton = document.createElement('button');
+            completeButton.textContent = 'Completar';
+            completeButton.classList.add('btn', 'btn-success', 'btn-sm');
+            completeButton.addEventListener('click', completeTask);
+
+            taskItem.appendChild(taskSpan);
+            taskItem.appendChild(completeButton);
+            taskList.appendChild(taskItem);
+        }
+
+        // Función para completar una tarea
+        function completeTask(event) {
+            const taskItem = event.target.parentNode;
+            const taskSpan = taskItem.querySelector('span');
+            taskSpan.classList.toggle('completed');
+
+            if (taskSpan.classList.contains('completed')) {
+                setTimeout(() => {
+                    taskList.removeChild(taskItem);
+                }, 1000); // Eliminar la tarea después de 1 segundo
+            }
+        }
+
+        // Agregar algunas tareas de ejemplo
+        addTask('Despertarme a nueva hora consultar para  un epísodio web.');
+        addTask('Comprar un pizza para la bicicleta.');
+        addTask('Entregar el trabajo de la empresa hora a las clientes.');
+        addTask('Analizar las datos de la encuesta hacia a las tiendas.');
+        addTask('Publicar un artículo en linea.');
+        addTask('Reservar un viñedo de flores  para un el rodaje.');
+        addTask('Lluviar a Perú por vacaciones con los de .');
+        addTask('No puedo las palabras de la empresa el dia 30.');
+        addTask('Aprender a tañar derchi.');
+    </script>
 </body>
 </html>
