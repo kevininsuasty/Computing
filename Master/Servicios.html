@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sitio Futurista</title>
+  <title>Servicio de Lista de Tareas</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <style>
@@ -76,74 +76,36 @@
     </div>
   </nav>
 
- 
-
   <div class="container mt-5">
-    <h1 class="text-center mb-4 display-4 font-weight-bold">
-      <i class="fas fa-tasks mr-2"></i>Mi Lista de Tareas
-    </h1>
-    <div class="input-group mb-3">
-      <input type="text" class="form-control" id="newTaskInput" placeholder="Ingresa una nueva tarea">
-      <div class="input-group-append">
-        <button class="btn btn-primary" id="addTaskButton">Agregar</button>
+    <h1 class="display-4 text-center mb-4">Servicio de Lista de Tareas</h1>
+    <p class="lead text-center mb-5">Gestiona tus tareas de manera eficiente con nuestro servicio de Lista de Tareas.</p>
+    <div class="row mb-4">
+      <div class="col-md-6">
+      </div>
+      <div class="col-md-6">
+        <h3><i class="fas fa-plus-circle mr-2"></i>Personaliza tus tareas</h3>
+        <p>Nuestra interfaz intuitiva te permite crear tareas personalizadas con descripciones detalladas, establecer plazos y asignar prioridades. También puedes añadir notas y adjuntar archivos relevantes.</p>
       </div>
     </div>
-    <ul class="list-group" id="taskList"></ul>
-  </div>
+    <div class="row mb-4">
+      <div class="col-md-6 order-md-2">
+      </div>
+      <div class="col-md-6 order-md-1">
+        <h3><i class="fas fa-folder-open mr-2"></i>Organiza tus tareas</h3>
+        <p>Organiza tus tareas por proyectos, áreas de responsabilidad o cualquier otra categoría que prefieras. Puedes crear categorías personalizadas y asignar tareas a múltiples categorías si es necesario. Esto te ayudará a mantener un seguimiento organizado de todos tus proyectos y responsabilidades.</p>
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col-md-6">
+      </div>
+      <div class="col-md-6">
+        <h3><i class="fas fa-check-circle mr-2"></i>Revisa tus tareas completadas</h3>
+        <p>Disfruta la satisfacción de marcar tareas como completadas con un solo clic. Además, puedes consultar un registro de las tareas completadas y revisar tu progreso a lo largo del tiempo. Esto te ayudará a mantenerte motivado y a celebrar tus logros.</p>
+      </div>
+    </div>
+    
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script>
-    const taskList = document.getElementById('taskList');
-    const newTaskInput = document.getElementById('newTaskInput');
-    const addTaskButton = document.getElementById('addTaskButton');
-
-    // Función para agregar una tarea
-    function addTask(taskText) {
-      const taskItem = document.createElement('li');
-      taskItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
-      const taskSpan = document.createElement('span');
-      taskSpan.textContent = taskText;
-      const completeButton = document.createElement('button');
-      completeButton.textContent = 'Completar';
-      completeButton.classList.add('btn', 'btn-success', 'btn-sm');
-      completeButton.addEventListener('click', completeTask);
-      taskItem.appendChild(taskSpan);
-      taskItem.appendChild(completeButton);
-      taskList.appendChild(taskItem);
-    }
-
-    // Función para completar una tarea
-    function completeTask(event) {
-      const taskItem = event.target.parentNode;
-      const taskSpan = taskItem.querySelector('span');
-      taskSpan.classList.toggle('completed');
-      if (taskSpan.classList.contains('completed')) {
-        setTimeout(() => {
-          taskList.removeChild(taskItem);
-        }, 5000); // Eliminar la tarea después de 5 segundos
-      }
-    }
-
-    // Agregar evento al botón de agregar tarea
-    addTaskButton.addEventListener('click', () => {
-      const newTaskText = newTaskInput.value.trim();
-      if (newTaskText !== '') {
-        addTask(newTaskText);
-        newTaskInput.value = '';
-      }
-    });
-
-    // Agregar algunas tareas de ejemplo
-    addTask('Despertar 6 AM.');
-    addTask('Tender la cama.');
-    addTask('7 AM Bañarse');
-    addTask('7:15 AM Cambiarse.');
-    addTask('8 AM Desayunar.');
-    addTask('8:15 Cepillarse.');
-    addTask('8:30 Buscar transporte para ir a clases.');
-    addTask('9 AM Llegar a clases.');
-    addTask('2 PM Salida de clases.');
-  </script>
 </body>
 </html>
