@@ -25,7 +25,7 @@ function completeTask(event) {
     if (taskSpan.classList.contains('completed')) {
         setTimeout(() => {
             taskList.removeChild(taskItem);
-        }, 5000); // Eliminar la tarea después de 5 segundos
+        }, 2000); // Eliminar la tarea después de 2 segundos
     }
 }
 
